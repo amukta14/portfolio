@@ -1,0 +1,510 @@
+*,
+before,
+after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: "Source Code Pro", monospace;
+  background-color: var(--bg-color);
+}
+section {
+  margin-top: 10rem;
+  padding: 2rem;
+}
+section h2 {
+  font-family: "Chakra Petch", sans-serif;
+}
+
+/* Primary colors */
+:root {
+  /* Light mode colors */
+  --primary-color: #a7c7e7;
+  --primary-light: #c6daf0;
+  --primary-dark: #89a7c7;
+  --text-color: #2b5174;
+  --bg-color: #e6f3ff;
+  --section-bg: #c6daf0;
+  --shadow-color: #aaa;
+
+  /* Dark mode colors */
+  --dark-primary: #1a2634;
+  --dark-secondary: #2c3e50;
+  --dark-accent: #3498db;
+  --dark-text: #ecf0f1;
+}
+
+/* Dark mode styles */
+[data-theme="dark"] {
+  --primary-color: var(--dark-accent);
+  --primary-light: var(--dark-secondary);
+  --primary-dark: var(--dark-accent);
+  --text-color: var(--dark-text);
+  --bg-color: var(--dark-primary);
+  --section-bg: var(--dark-secondary);
+  --shadow-color: #000;
+}
+
+/* Theme toggle switch styles */
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.theme-switch {
+  display: inline-block;
+  height: 34px;
+  position: relative;
+  width: 60px;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.slider {
+  background-color: var(--primary-dark);
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  background-color: var(--primary-light);
+  bottom: 4px;
+  content: "☀️"; /* Sun emoji for light mode */
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: 0.4s;
+  width: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+input:checked + .slider {
+  background-color: var(--dark-accent);
+}
+
+input:checked + .slider:before {
+  content: "🌙"; /* Moon emoji for dark mode */
+  transform: translateX(26px);
+}
+
+/* Navigation Bar */
+header {
+  background-color: var(--section-bg);
+  height: 7.5rem;
+  padding: 0 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.4rem solid var(--primary-dark);
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  width: 80vw;
+  transform: translateX(-50%);
+  border-radius: 0.8rem;
+  box-shadow: 0.8rem 0.8rem 0.2rem var(--shadow-color);
+  z-index: 1000; /* Ensure navbar stays on top */
+}
+.logo {
+  font-size: 2rem;
+  color: var(--text-color);
+  font-family: "Chakra Petch", sans-serif;
+  text-shadow: 0.2rem 0.2rem var(--primary-color);
+}
+#navbar {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+#navbar ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+}
+#navbar ul li {
+  list-style: none;
+}
+#navbar ul li a {
+  border: none;
+  border-radius: 0.6rem;
+  font-size: 1rem;
+  padding: 0.2rem;
+  text-decoration: none;
+  color: var(--text-color);
+}
+#navbar ul li a:hover {
+  background-color: var(--primary-dark);
+  color: var(--bg-color);
+}
+
+/* Profile Image */
+.profile-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem; /* Adjust the margin as needed */
+}
+
+.profile-image {
+  width: 150px; /* Adjust the size as needed */
+  height: 150px; /* Adjust the size as needed */
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
+
+/* Heading */
+#heading {
+  height: 100vh;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#heading h1 {
+  color: var(--primary-dark);
+  font-size: 2rem;
+}
+#heading .subheading {
+  color: var(--text-color);
+  font-size: 3.8rem;
+  font-family: "Chakra Petch", sans-serif;
+  animation: color-change-animation 4.5s ease-in-out infinite 0.5s;
+}
+#heading a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin-top: 1rem;
+  font-size: 1.6rem;
+}
+#heading a i {
+  margin-top: -0.4rem;
+  font-size: 1.6rem;
+}
+#heading a:hover,
+#heading a i:hover {
+  transform: scale(90%);
+  transition: 0.5s ease-in-out 0.2s;
+}
+
+/* About */
+#about {
+  background-color: var(--section-bg);
+  width: 80vw;
+  margin: auto;
+  border-radius: 0.6rem;
+  margin-bottom: 4rem;
+  box-shadow: 1rem 1rem 0.2rem var(--shadow-color);
+}
+#about h1,
+#about .subheading {
+  text-align: center;
+}
+#about h1 {
+  font-size: 3rem;
+  color: var(--text-color);
+  padding-top: 1.4rem;
+}
+#about .subheading {
+  font-size: 1.8rem;
+  color: var(--primary-dark);
+}
+#about .paragraph {
+  font-size: 1.6rem;
+  padding: 1.8rem;
+  color: var(--text-color);
+}
+
+/* Projects */
+#projects {
+  background-color: var(--section-bg);
+  width: 80vw;
+  margin: auto;
+  border-radius: 0.6rem;
+  padding-bottom: 1rem;
+  margin-bottom: 4rem;
+  box-shadow: 1rem 1rem 0.2rem var(--shadow-color);
+}
+#projects h2,
+#projects .subheading {
+  text-align: center;
+}
+#projects h2 {
+  font-size: 3rem;
+  color: var(--text-color);
+  padding-top: 1.4rem;
+}
+#projects .subheading {
+  font-size: 1.8rem;
+  color: var(--primary-dark);
+}
+#projects .paragraph {
+  font-size: 1.6rem;
+  padding: 1.8rem;
+  color: var(--text-color);
+}
+#projects .project-gallery {
+  border: 0.2rem solid var(--primary-dark);
+  border-radius: 0.6rem;
+  height: 20rem;
+  width: 90%;
+  margin: 1rem auto;
+  margin-bottom: 3rem;
+  box-shadow: 1rem 1rem 0.2rem var(--shadow-color);
+  background-color: rgba(var(--primary-color), 0.4); /* Fixed opacity */
+  padding: 1.4rem;
+  white-space: nowrap;
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 1.4rem;
+}
+.project-tile {
+  position: relative;
+  display: inline-block;
+}
+.image-overlay img {
+  width: 100%;
+  display: block;
+  border-radius: 0.8rem;
+  box-shadow: 0.8rem 0.8rem 0.4rem var(--shadow-color);
+}
+.overlay-text {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6); /* Black background with transparency */
+  color: var(--bg-color); /* White text */
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.4rem;
+  border-bottom-left-radius: 0.8rem;
+  border-bottom-right-radius: 0.8rem;
+}
+
+@media only screen and (max-width: 600px) {
+  #projects .project-gallery {
+    flex-direction: column;
+    height: auto; /* Adjust the height for vertical layout */
+  }
+
+  .project-tile {
+    width: 100%;
+  }
+
+  .project-tile img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+  }
+}
+
+/* Contact */
+#contact {
+  background-color: var(--section-bg);
+  width: 80vw;
+  margin: auto;
+  border-radius: 0.6rem;
+  padding-bottom: 1rem;
+  box-shadow: 1rem 1rem 0.2rem var(--shadow-color);
+}
+#contact h2,
+#contact .subheading {
+  text-align: center;
+}
+#contact h2 {
+  font-size: 3rem;
+  color: var(--text-color);
+  padding-top: 1.4rem;
+}
+#contact .subheading {
+  font-size: 1.8rem;
+  color: var(--primary-dark);
+}
+.contact-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  height: 2rem;
+  padding: 3rem;
+  margin-top: 1.8rem;
+  margin-bottom: 1.8rem;
+}
+#contact a {
+  color: var(--primary-dark);
+  border: 0.2rem solid var(--primary-dark);
+  border-radius: 1rem;
+  padding: 1rem;
+  font-size: 2.8rem;
+  box-shadow: 0.6rem 0.6rem var(--shadow-color);
+  transition: 0.5s ease-in-out 0.2s;
+}
+#contact a:hover {
+  color: var(--text-color);
+  border: 0.2rem solid var(--text-color);
+  transform: scale(1.2);
+}
+
+/* Footer */
+footer {
+  background-color: var(--section-bg);
+  height: 10rem;
+  font-family: "Chakra Petch", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-top: 8rem;
+}
+p.copyright {
+  color: var(--text-color);
+}
+.copyright .logo {
+  font-size: 2.4rem;
+}
+
+/* Media Queries */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Different screen sizes responsiveness */
+@media only screen and (min-width: 600px) {
+  header {
+    padding: 0 2rem;
+  }
+  .logo {
+    font-size: 3.4rem;
+  }
+  #navbar {
+    gap: 3rem;
+  }
+  #navbar ul {
+    gap: 1rem;
+  }
+  #navbar ul li a {
+    font-size: 1.8rem;
+  }
+  #heading h1 {
+    font-size: 3.4rem;
+  }
+  #heading .subheading {
+    font-size: 6rem;
+  }
+  #heading a {
+    font-size: 2rem;
+  }
+  #heading a .chevron-down {
+    margin-top: -0.8rem;
+    font-size: 2rem;
+  }
+  #about {
+    width: 70vw;
+    max-width: 100rem;
+  }
+  #about h1 {
+    font-size: 5rem;
+  }
+  #about .subheading {
+    font-size: 2.8rem;
+  }
+  #about .paragraph {
+    font-size: 2.4rem;
+    padding: 3rem;
+  }
+  #projects {
+    width: 80vw;
+    max-width: 120rem;
+  }
+  #projects h2 {
+    font-size: 5rem;
+  }
+  #projects .subheading {
+    font-size: 2.8rem;
+  }
+  #projects .paragraph {
+    font-size: 2.4rem;
+    padding: 3rem;
+  }
+  #projects .project-gallery {
+    height: 30rem;
+    gap: 2.4rem;
+  }
+  .project-tile img {
+    height: 95%;
+  }
+  #contact {
+    width: 70vw;
+    max-width: 100rem;
+  }
+  #contact h2 {
+    font-size: 5rem;
+  }
+  #contact .subheading {
+    font-size: 2.8rem;
+  }
+  .contact-options {
+    gap: 4rem;
+    height: 4rem;
+    padding: 4rem;
+  }
+  #contact a {
+    padding: 1.4rem;
+    font-size: 4rem;
+  }
+  footer {
+    height: 12rem;
+    font-size: 2rem;
+  }
+  .copyright .logo {
+    font-size: 2.8rem;
+  }
+}
+
+/* Animations */
+@keyframes color-change-animation {
+  25% {
+    color: var(--primary-color);
+  }
+  50% {
+    color: var(--primary-light);
+  }
+  75% {
+    color: var(--primary-dark);
+  }
+  100% {
+    color: var(--text-color);
+  }
+}
+
+/* Background colors */
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.highlight {
+  background-color: var(--bg-color);
+}
