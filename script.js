@@ -1,3 +1,4 @@
+//Darkmode logic
 const toggleSwitch = document.querySelector(
   '.theme-switch input[type="checkbox"]'
 );
@@ -14,7 +15,6 @@ function switchTheme(e) {
 
 toggleSwitch.addEventListener("change", switchTheme, false);
 
-// Check for saved user preference, if any, on load of the website
 const currentTheme = localStorage.getItem("theme");
 if (currentTheme) {
   document.documentElement.setAttribute("data-theme", currentTheme);
@@ -22,3 +22,25 @@ if (currentTheme) {
     toggleSwitch.checked = true;
   }
 }
+
+// Navbar Logic
+const menuIcon = document.querySelector(".menu-icon");
+const mobileNav = document.querySelector(".mobile-nav");
+
+menuIcon.addEventListener("click", () => {
+  mobileNav.classList.toggle("show");
+});
+
+// Close mobile menu when clicking a link
+document.querySelectorAll(".mobile-nav a").forEach((link) => {
+  link.addEventListener("click", () => {
+    mobileNav.classList.remove("show");
+  });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener("click", (e) => {
+  if (!mobileNav.contains(e.target) && !menuIcon.contains(e.target)) {
+    mobileNav.classList.remove("show");
+  }
+});

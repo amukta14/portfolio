@@ -36,6 +36,10 @@ section h2 {
   --dark-secondary: #2c3e50;
   --dark-accent: #3498db;
   --dark-text: #ecf0f1;
+
+  /* Add smooth transition for all color changes */
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 /* Dark mode styles */
@@ -82,7 +86,7 @@ section h2 {
 .slider:before {
   background-color: var(--primary-light);
   bottom: 4px;
-  content: "☀️"; /* Sun emoji for light mode */
+  content: "☀️";
   height: 26px;
   left: 4px;
   position: absolute;
@@ -100,11 +104,11 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-  content: "🌙"; /* Moon emoji for dark mode */
+  content: "🌙";
   transform: translateX(26px);
 }
 
-/* Navigation Bar */
+/* Navbar */
 header {
   background-color: var(--section-bg);
   height: 7.5rem;
@@ -159,15 +163,42 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2rem; /* Adjust the margin as needed */
+  margin-bottom: 2rem;
+  position: relative;
 }
 
 .profile-image {
-  width: 150px; /* Adjust the size as needed */
-  height: 150px; /* Adjust the size as needed */
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+.profile-image-container::before {
+  content: "";
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 5px solid var(--primary-color);
+  animation: ring-animation 6.5s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* Update media query for larger screens */
+@media only screen and (min-width: 600px) {
+  .profile-image {
+    width: 200px;
+    height: 200px;
+  }
+
+  .profile-image-container::before {
+    width: 210px;
+    height: 210px;
+  }
 }
 
 /* Heading */
@@ -189,7 +220,7 @@ header {
   color: var(--text-color);
   font-size: 3.8rem;
   font-family: "Chakra Petch", sans-serif;
-  animation: color-change-animation 4.5s ease-in-out infinite 0.5s;
+  animation: color-change-animation 6.5s ease-in-out infinite;
 }
 #heading a {
   color: var(--text-color);
@@ -262,38 +293,67 @@ header {
   font-size: 1.6rem;
   padding: 1.8rem;
   color: var(--text-color);
+  opacity: 0.9;
 }
 #projects .project-gallery {
   border: 0.2rem solid var(--primary-dark);
   border-radius: 0.6rem;
-  height: 20rem;
-  width: 90%;
+  height: 45rem;
+  width: 95%;
   margin: 1rem auto;
   margin-bottom: 3rem;
   box-shadow: 1rem 1rem 0.2rem var(--shadow-color);
-  background-color: rgba(var(--primary-color), 0.4); /* Fixed opacity */
-  padding: 1.4rem;
-  white-space: nowrap;
-  overflow: auto;
+  background-color: rgba(var(--primary-color), 0.4);
+  padding: 2rem;
+  overflow-x: scroll;
   display: flex;
-  flex-direction: row;
-  gap: 1.4rem;
+  justify-content: flex-start;
+  gap: 3rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-dark) var(--bg-color);
+  max-height: 45rem;
 }
+
+#projects .project-gallery::-webkit-scrollbar {
+  height: 8px;
+}
+
+#projects .project-gallery::-webkit-scrollbar-track {
+  background: var(--bg-color);
+  border-radius: 4px;
+}
+
+#projects .project-gallery::-webkit-scrollbar-thumb {
+  background: var(--primary-dark);
+  border-radius: 4px;
+}
+
+#projects .project-gallery::-webkit-scrollbar-thumb:hover {
+  background: var(--text-color);
+}
+
 .project-tile {
   position: relative;
-  display: inline-block;
+  flex: 0 0 auto;
+  width: 500px;
+  height: 350px;
+}
+.image-overlay {
+  width: 100%;
+  height: 100%;
 }
 .image-overlay img {
   width: 100%;
-  display: block;
+  height: 100%;
+  object-fit: cover;
   border-radius: 0.8rem;
   box-shadow: 0.8rem 0.8rem 0.4rem var(--shadow-color);
 }
 .overlay-text {
   position: absolute;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6); /* Black background with transparency */
-  color: var(--bg-color); /* White text */
+  background: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
   width: 100%;
   text-align: center;
   padding: 1rem;
@@ -302,19 +362,76 @@ header {
   border-bottom-right-radius: 0.8rem;
 }
 
+.menu-icon {
+  display: none;
+  font-size: 2.4rem;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.menu-icon i {
+  display: block;
+}
+
 @media only screen and (max-width: 600px) {
+  /* Header & Navigation */
+  header {
+    padding: 0 1.5rem;
+  }
+
+  .logo {
+    font-size: 2.4rem;
+  }
+
+  #navbar {
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+  }
+
+  #navbar ul {
+    display: none;
+  }
+
+  .menu-icon {
+    display: block;
+    margin-right: 1rem;
+  }
+
+  .theme-switch-wrapper {
+    margin-right: 0;
+  }
+
   #projects .project-gallery {
     flex-direction: column;
-    height: auto; /* Adjust the height for vertical layout */
+    align-items: center;
+    height: auto;
+    padding: 1.5rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    gap: 2rem;
   }
 
   .project-tile {
     width: 100%;
+    height: 250px;
+    max-width: calc(100% - 2rem);
   }
 
-  .project-tile img {
+  .image-overlay {
     width: 100%;
-    height: auto; /* Maintain aspect ratio */
+    height: 100%;
+  }
+
+  .image-overlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .mobile-nav {
+    width: calc(80vw - 2rem);
   }
 }
 
@@ -450,11 +567,11 @@ p.copyright {
     padding: 3rem;
   }
   #projects .project-gallery {
-    height: 30rem;
-    gap: 2.4rem;
+    height: 45rem;
+    gap: 3rem;
   }
   .project-tile img {
-    height: 95%;
+    height: 100%;
   }
   #contact {
     width: 70vw;
@@ -507,4 +624,79 @@ p.copyright {
 
 .highlight {
   background-color: var(--bg-color);
+}
+
+/* Mobile menu styles */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 9rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  background-color: var(--section-bg);
+  border-radius: 0.8rem;
+  padding: 1rem;
+  box-shadow: 0.8rem 0.8rem 0.2rem var(--shadow-color);
+  z-index: 999;
+}
+
+.mobile-nav.show {
+  display: block;
+}
+
+.mobile-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.mobile-nav ul li {
+  list-style: none;
+  width: 100%;
+  text-align: center;
+}
+
+.mobile-nav ul li a {
+  display: block;
+  padding: 1rem;
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1.8rem;
+  border-radius: 0.6rem;
+}
+
+.mobile-nav ul li a:hover {
+  background-color: var(--primary-dark);
+  color: var(--bg-color);
+}
+
+/* Add transition to elements that change color */
+body,
+header,
+.logo,
+#navbar ul li a,
+#about,
+#projects,
+#contact,
+footer,
+.mobile-nav {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Add ring animation */
+@keyframes ring-animation {
+  25% {
+    border-color: var(--primary-color);
+  }
+  50% {
+    border-color: var(--primary-light);
+  }
+  75% {
+    border-color: var(--primary-dark);
+  }
+  100% {
+    border-color: var(--text-color);
+  }
 }
